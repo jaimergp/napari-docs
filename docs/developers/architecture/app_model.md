@@ -1,3 +1,5 @@
+(app-model)=
+
 # napari's application model
 
 ```{important}
@@ -8,7 +10,7 @@ or understanding the inner workings of napari.
 ```
 
 ```{warning}
-**Work in progress!** 
+**Work in progress!**
 This document is here to give a little guidance on the current
 vision for how this application model might be used. It will very likely change
 as we develop it.
@@ -25,7 +27,7 @@ reusable by any python GUI application).
 
 Currently, the primary purpose of the `app` is to compose the various
 [registries](https://app-model.readthedocs.io/en/latest/registries/) (commands,
-keybindings, menus, etc...) into a single name-spaced object.  
+keybindings, menus, etc...) into a single name-spaced object.
 
 ## Commands
 
@@ -196,7 +198,7 @@ function, plugins/users don't use the `@inject` decorator themselves), and the p
 A user/plugin provides a function
 
 ```python
-# some user provided function declares a need 
+# some user provided function declares a need
 # for Points by using type annotations.
 def process_points(points: 'Points'):
     # do something with points
@@ -217,7 +219,7 @@ def provide_points() -> Optional['Points']:
     viewer = napari.viewer.current_viewer()
     if viewer is not None:
         return next(
-            (i for i in viewer.layers if isinstance(i, Points)), 
+            (i for i in viewer.layers if isinstance(i, Points)),
             None
         )
 
@@ -234,7 +236,7 @@ providing arguments:
 ```
 
 ```{tip}
-The primary place that this injection occurs is *in* `app-model`: in the `run_injected` property of all registered commands in the `CommandsRegistry`. 
+The primary place that this injection occurs is *in* `app-model`: in the `run_injected` property of all registered commands in the `CommandsRegistry`.
 ```
 
 Note: injection doesn't *inherently* mean that it's always safe to call an
@@ -260,7 +262,7 @@ Some Points
 
 The fact that `injected_func` may now be called without parameters allows it to
 be used easily as a command in a menu, or bound to a keybinding.  It is up to
-`napari` to determine what providers it will make available, and what type hints
+napari to determine what providers it will make available, and what type hints
 plugins/users may use to request dependencies.
 
 ## Motivation & Future Vision
